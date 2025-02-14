@@ -53,13 +53,13 @@ func (waf *GinCoraza) PreRegisertPath(fullPath string) {
 	waf.Waf[fullPath] = Waf{IsEnable: IsEnable, CheckReqHeader: CheckReqHeader, CheckReqBody: CheckReqBody, CheckRespHeader: CheckReqHeader, CheckRespBody: CheckReqBody, IsRegister: !IsRegister}
 }
 
-func (waf *GinCoraza) RegisertPath(fullPath string, isEnable, checkReqHeader, checkReqBody, checkRespHeader, checkRespBody bool) {
+func (waf *GinCoraza) RegisertPath(fullPath string, cfg Waf) {
 	if val, exists := waf.Waf[fullPath]; exists {
 		if val.IsRegister {
 			return
 		}
 	}
-	waf.Waf[fullPath] = Waf{IsEnable: isEnable, CheckReqHeader: checkReqHeader, CheckReqBody: checkReqBody, CheckRespHeader: checkReqHeader, CheckRespBody: checkReqBody, IsRegister: IsRegister}
+	waf.Waf[fullPath] = cfg
 }
 
 func (waf *GinCoraza) GinCoraza() gin.HandlerFunc {
